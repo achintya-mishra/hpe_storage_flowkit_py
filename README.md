@@ -164,6 +164,20 @@ pip install hpe-storage-flowkit-py
 - Get User
 - Get All Users
 
+### Certificate Management
+- Create Certificate
+- Patch Certificate
+- Patch Certificate by Name
+- Delete Certificate
+- Delete Certificate by Name
+- Get Certificate
+- Get Certificate by Name
+- Get All Certificates
+
+### Alert Management
+- Get Alerts
+- Generate Test Alert
+
 ### Storage Management
 - Manage Existing Volume
 - Unmanage Volume

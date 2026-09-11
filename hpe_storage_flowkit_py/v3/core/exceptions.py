@@ -218,6 +218,22 @@ class UserDoesNotExist(HPEStorageException):
 		super().__init__(self.message)
 
 
+class CertificateDoesNotExist(HPEStorageException):
+	"""Raised when attempting to access a certificate that does not exist."""
+	def __init__(self, uid=None, message=None):
+		self.uid = uid
+		self.message = message or f"Certificate '{uid}' does not exist."
+		super().__init__(self.message)
+
+
+class CertificateAlreadyExists(HPEStorageException):
+	"""Raised when attempting to create a certificate that already exists."""
+	def __init__(self, uid=None, message=None):
+		self.uid = uid
+		self.message = message or f"Certificate '{uid}' already exists."
+		super().__init__(self.message)
+
+
 class AuthenticationError(HPEStorageException):
 	"""Raised when authentication fails or insufficient privileges."""
 	def __init__(self, message=None):
