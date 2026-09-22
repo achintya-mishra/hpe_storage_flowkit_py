@@ -28,7 +28,7 @@ def validate_create_volume_params(name, sizeMiB, userCpg, params=None):
 		params (dict): Optional parameters for volume creation
 			
 	Allowed optional parameters:
-		- comments (str): Comments of the volume (max 255 chars)
+		- comments (str): Comments of the volume
 		- count (int): Count of volumes to be created (positive int)
 		- dataReduction (bool): Data reduction setting
 		- expireSecs (int): Expiration value for volume snapshot (uint64)
@@ -73,8 +73,6 @@ def validate_create_volume_params(name, sizeMiB, userCpg, params=None):
 		if param == 'comments':
 			if not isinstance(value, str):
 				raise ValueError("'comments' must be a string")
-			if len(value) > 255:
-				raise ValueError("'comments' must not exceed 255 characters")
 		
 		elif param == 'count':
 			if not isinstance(value, int) or value < 1:
@@ -117,7 +115,7 @@ def validate_modify_volume_params(vol_name,params=None):
 		params (dict): Optional parameters for volume modification
 			
 	Allowed optional parameters:
-		- comments (str): Edit comment of virtual volume (max 255 chars)
+		- comments (str): Edit comment of virtual volume
 		- expireSecs (int): Expiration value for volume snapshot (uint64)
 		- keyValuePairs (dict): Key value pairs assigned to the object
 		- name (str): Edit name of virtual volume
@@ -158,8 +156,6 @@ def validate_modify_volume_params(vol_name,params=None):
 		if param == 'comments':
 			if not isinstance(value, str):
 				raise ValueError("'comments' must be a string")
-			if len(value) > 255:
-				raise ValueError("'comments' must not exceed 255 characters")
 		
 		elif param == 'expireSecs':
 			if not isinstance(value, int) or value < 0:

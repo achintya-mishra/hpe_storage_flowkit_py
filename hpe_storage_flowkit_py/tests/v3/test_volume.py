@@ -806,12 +806,6 @@ class TestVolumeValidator(unittest.TestCase):
 			validate_create_volume_params('vol1', 1024, 'cpg1', {'comments': 123})
 		self.assertIn('must be a string', str(context.exception))
 	
-	def test_validate_create_volume_params_comments_length(self):
-		"""Test create volume validation checks comments length"""
-		with self.assertRaises(ValueError) as context:
-			validate_create_volume_params('vol1', 1024, 'cpg1', {'comments': 'x' * 256})
-		self.assertIn('255 characters', str(context.exception))
-	
 	def test_validate_create_volume_params_count_type(self):
 		"""Test create volume validation checks count type"""
 		with self.assertRaises(ValueError) as context:
@@ -936,12 +930,6 @@ class TestVolumeValidator(unittest.TestCase):
 		with self.assertRaises(ValueError) as context:
 			validate_modify_volume_params('vol1', {'comments': 123})
 		self.assertIn('must be a string', str(context.exception))
-	
-	def test_validate_modify_volume_params_comments_length(self):
-		"""Test modify volume validation checks comments length"""
-		with self.assertRaises(ValueError) as context:
-			validate_modify_volume_params('vol1', {'comments': 'x' * 256})
-		self.assertIn('255 characters', str(context.exception))
 	
 	def test_validate_modify_volume_params_expireSecs_type(self):
 		"""Test modify volume validation checks expireSecs type"""
