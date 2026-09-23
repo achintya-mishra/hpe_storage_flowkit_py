@@ -514,17 +514,21 @@ class VLUNWorkflow:
 
         for vlun in vluns:
             print("  -- vlun: ", vlun)
-            # Check if this VLUN belongs to the specified hostname
-            if vlun.get('hostname') == hostname:
-                #logger.debug("deleting vlun: %(lun)s", {'lun': vlun})
-                print("deleting vlun")
-                self.delete_vlun(vol_name_3par, vlun['lun'],
-                                hostname)
-            else:
+            # In a normal detach a hostname is supplied and we only remove
+            # that host's VLUN. In a force-detach there is no connector, so
+            # hostname is None; fall back to the hostname on the VLUN record
+            # itself (mirrors remove_vlun() for FC/iSCSI) so the template is
+            # still removed and the active VLUN is cascaded away.
+            vlun_hostname = vlun.get('hostname')
+            if hostname is not None and vlun_hostname != hostname:
                 #logger.debug("Skipping vlun: %(lun)s -"
                 print("Skipping vlun: %(lun)s -"
                              " belongs to different host: %(vlun_host)s",
                              {'lun': vlun['lun'],
-                              'vlun_host': vlun.get('hostname', 'Unknown')})
+                              'vlun_host': vlun_hostname or 'Unknown'})
+                continue
+            #logger.debug("deleting vlun: %(lun)s", {'lun': vlun})
+            print("deleting vlun")
+            self.delete_vlun(vol_name_3par, vlun['lun'], vlun_hostname)
 
 
